@@ -1,0 +1,94 @@
+<div class="row" *ngIf="this.colis != null">
+    <div class="col-md-2 "></div>
+    <div class="col-md-8 ">
+      <div class="card ">
+        <div class="card-header text-center">
+          <h4 class="card-title">Consulter colis en details  </h4>
+        </div>
+        <div class="card-body">
+          <div class=" table-upgrade">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Désignation</td>
+                  <td class="text-center">{{colis.designation}}</td>
+                </tr>
+                <tr>
+                  <td>Nom complet</td>
+                  <td class="text-center">{{colis.fullName}}</td>
+                </tr>
+                <tr>
+                  <td>Téléphone</td>
+                  <td class="text-center">{{colis.telNumber}}</td>
+                </tr>
+                <tr>
+                  <td>Governorat</td>
+                  <td class="text-center">{{colis.governorate}}</td>
+                </tr>
+                <tr>
+                  <td>Ville</td>
+                  <td class="text-center">{{colis.city}}</td>
+                </tr>
+                <tr>
+                  <td>Adresse complète</td>
+                  <td class="text-center">{{colis.fullAddress}}</td>
+                </tr>
+                <tr>
+                  <td>Nombre d'article</td>
+                  <td class="text-center">{{colis.articleNumber}}</td>
+                </tr>
+                <tr>
+                    <td>Nombre de colis</td>
+                    <td class="text-center">{{colis.packageNumber}}</td>
+                </tr>
+                <tr>
+                    <td>Statut</td>
+                    <td class="text-center">
+                        <span class="badge badge-pill badge-danger" *ngIf="colis?.status === 'NOT_STARTED'">Commande n'est pas traitée</span>
+                        <span class="badge badge-pill badge-primary" *ngIf="colis?.status === 'IN_PROGRESS'">Commande en cours</span>
+                        <span class="badge badge-pill badge-success" *ngIf="colis?.status === 'DELIVERED'">Commande livrée</span>
+                        <span class="badge badge-pill badge-success" *ngIf="colis?.status === 'BOOKED'">Commande payée</span>
+                      
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mode de paiment</td>
+                    <td class="text-center">
+                        <span class="badge badge-pill badge-success" *ngIf="colis?.paymentMode === 'CASH'">Espèce seulement</span>
+                        <span class="badge badge-pill badge-primary" *ngIf="colis?.paymentMode === 'CHEQUE'">Chéque seulement</span>
+                        <span class="badge badge-pill badge-warning" *ngIf="colis?.paymentMode === 'CASH_OR_CHEQUE'">Espèce ou Chéque</span>
+                  
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Type de livraison</td>
+                    <td class="text-center">
+                        <span class="badge badge-pill badge-success" *ngIf="colis?.deliveryType === 'RAPID'">Livraison Rapide</span>
+                        <span class="badge badge-pill badge-primary" *ngIf="colis?.deliveryType === 'NORMAL'">Livraison Noramale</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ouvrir le colis au client avant le paiement ?</td>
+                    <td class="text-center">
+                        <ng-container *ngIf="colis.packageCanBeOpen; else noPackageCanBeOpen">
+                          <i class="nc-icon nc-check-2 text-success"></i>
+                        </ng-container>
+                        <ng-template #noPackageCanBeOpen>
+                          <i class="nc-icon nc-simple-remove text-danger"></i>
+                        </ng-template>
+                      </td>
+                     </tr>
+                <tr>
+                    <td>Remarques</td>
+                    <td class="text-center">{{colis.comment}}</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

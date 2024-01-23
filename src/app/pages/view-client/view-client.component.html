@@ -1,0 +1,73 @@
+<div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"> Consulter Clients</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th>
+                Nom de l'entreprise
+              </th>
+              <th>
+                Matricule fiscale
+              </th>
+              <th >
+                CIN
+              </th>
+              <th>
+                Adresse e-mail
+              </th>
+              <th>
+                Prénom
+              </th>
+              <th>
+                Nom
+              </th>
+              <th >
+                Numéro de téléphone
+              </th>
+              <th >
+                Adresse
+              </th>
+              <th >
+                Prix de livraison
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let account of clientAccount">
+                <td>
+                  {{account?.campanyName}}
+                </td>
+                <td>
+                  {{account?.taxIdentificationNumber}}
+                </td>
+                <td>
+                  {{account?.cin}}
+                </td>
+                <td >
+                  {{account?.email}}
+                </td>
+                <td >
+                  {{account?.firstName}}
+                </td>
+                <td >
+                  {{account?.lastName}}
+                </td>
+                <td >
+                  {{account?.telNumber}}
+                </td>
+                <td >
+                  {{account?.address}} , {{account?.city}} ,  {{account?.codePostal}}
+                </td>
+                <td >
+                  {{account?.priceOfDelivery | currency:"TND" }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

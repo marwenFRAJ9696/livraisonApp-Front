@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Add Client</h5>
+        </div>
+        <div class="card-body">
+          <form action="#"  (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label>Nom de l'entreprise</label>
+                  <input type="text" class="form-control" [(ngModel)]="form.campanyName" name="campanyName"  placeholder="Nom de l'entreprise">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="taxIdentificationNumber">Matricule fiscale</label>
+                  <input type="text" class="form-control" [(ngModel)]="form.taxIdentificationNumber" name="taxIdentificationNumber" placeholder="Matricule fiscale">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label>CIN</label>
+                  <input type="number" class="form-control" [(ngModel)]="form.cin" name="cin" placeholder="cin" >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Adresse e-mail</label>
+                    <input type="email" class="form-control" [(ngModel)]="form.email"  name="email" placeholder="Adresse e-mail">
+                  </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control" [(ngModel)]="form.password"  name="password" placeholder=">Mot de passe">
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 pr-1">
+                  <div class="form-group">
+                    <label>Prénom</label>
+                    <input type="text" class="form-control" [(ngModel)]="form.firstName" name="firstName"  placeholder="Prénom" >
+                  </div>
+                </div>
+                <div class="col-md-4 pl-1">
+                  <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" [(ngModel)]="form.lastName" name="lastName"  placeholder="Nom" >
+                  </div>
+                </div>
+                <div class="col-md-4 pl-1">
+                  <div class="form-group">
+                    <label>Genre</label>
+                    <select class="form-control" [(ngModel)]="form.sexe"  aria-label="Default select example">
+                      <option selected></option>
+                      <option [value]="genre"   name="genre" *ngFor="let genre of genres">{{genre}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>Adresse</label>
+                  <input type="text" class="form-control" [(ngModel)]="form.address"  name="address" placeholder="Adresse" >
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label>Numéro de téléphone</label>
+                  <input type="number" class="form-control" [(ngModel)]="form.telNumber"  name="telNumber" placeholder="Numéro de téléphone" >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label>Ville</label>
+                  <input type="text" class="form-control" [(ngModel)]="form.city" name="city"  placeholder="Ville" >
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label>Code Postal</label>
+                  <input type="number" class="form-control" [(ngModel)]="form.codePostal" name="codePostal"  placeholder="Code Postal">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label>Prix de livraison</label>
+                  <input type="number" class="form-control" [(ngModel)]="form.priceOfDelivery" name="priceOfDelivery"  placeholder="prix de livraison">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round">Add Client</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

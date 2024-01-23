@@ -1,0 +1,152 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Ajouter Colis</h5>
+        </div>
+        <div class="card-body">
+          <form action="#"  (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Nom complet</label>
+                  <input type="text" class="form-control" [(ngModel)]="form.fullName" name="fullName" placeholder="Nom complet" >
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>Governorat</label>
+                  <select class="form-control" [(ngModel)]="form.governorate" (change)="onSelectChange($event)" aria-label="Default select example">
+                    <option selected></option>
+                    <option [value]="gouv?.name"   name="governorate" *ngFor="let gouv of Governorats">{{gouv?.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Ville</label>
+                  <select class="form-control" [(ngModel)]="form.city" aria-label="Default select example">
+                    <option selected></option>
+                    <option [value]="v?.name"   name="city" *ngFor="let v of ville">{{v?.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Adresse complète</label>
+                  <input type="text" class="form-control" [(ngModel)]="form.fullAddress"  name="fullAddress"  placeholder="Adresse complète">
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Téléphone</label>
+                  <input type="text" class="form-control" [(ngModel)]="form.telNumber" name="telNumber" placeholder="Téléphone">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Désignation</label>
+                  <input type="text" class="form-control" [(ngModel)]="form.designation"  name="designation" placeholder="Désignation">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Nombre d'article</label>
+                  <input type="number" class="form-control" [(ngModel)]="form.articleNumber"  name="articleNumber" placeholder="Nombre d'article" >
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Nombre de colis</label>
+                  <input type="number" class="form-control" [(ngModel)]="form.packageNumber" name="packageNumber" placeholder="Nombre de colis">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Mode de paiment</label>
+                  <select class="form-control" [(ngModel)]="form.paymentMode" aria-label="Default select example">
+                    <option selected></option>
+                    <option [value]="p.key"  name="paymentMode" *ngFor="let p of paymentModes">{{p.name}}</option>
+                  </select>
+                </div>
+              </div>
+                <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                        <label>Type de livraison</label>
+                        <select class="form-control" [(ngModel)]="form.deliveryType" aria-label="Default select example">
+                          <option selected></option>
+                          <option [value]="d.key"  name="deliveryType" *ngFor="let d of deliveryTypes">{{d.name}}</option>
+                        </select>
+                      </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-md-12 pr-1">
+                  <div class="form-group">
+                    <label>Ouvrir le colis au client avant le paiement ?</label>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label"  for="inlineCheckbox1">OUI</label>
+                        <input class="form-check-input"  [(ngModel)]="form.isPackageCanBeOpen"  name="isPackageCanBeOpen" type="radio" id="inlineCheckbox1" value="OUI">
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="inlineCheckbox2">NON</label>
+                        <input class="form-check-input"  [(ngModel)]="form.isPackageCanBeOpen" name="isPackageCanBeOpen" type="radio" id="inlineCheckbox2"  value="NON" checked >
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 pr-3">
+                  <div class="form-group">
+                    <label>Remarques :</label>
+                    <textarea name="commentaire" [(ngModel)]="form.comment" name="comment" class="form-control cc-number identified visa"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 pr-1"></div>
+                <div class="col-md-4 pr-3">
+                  <div class="form-group">
+                    <label>Prix en DT</label>
+                    <input type="text" class="form-control" [(ngModel)]="form.priceNet"   name="priceNet" (input)="calculateSum()"  placeholder="Prix en DT">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 pr-1"></div>
+                <div class="col-md-4 pr-3">
+                  <div class="form-group">
+                    <label>Prix de livraison en DT</label>
+                    <input type="text" disabled class="form-control" [value]="priceOfDelivery"   name="priceOfDelivery"  placeholder="Prix en DT">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 pr-1"></div>
+                <div class="col-md-4 pr-3">
+                  <div class="form-group">
+                    <label>Prix inclut frais de livraison en DT</label>
+                    <input type="text" disabled class="form-control" [(ngModel)]="totalPrice"   name="priceOfDelivery"  placeholder="Prix en DT">
+                  </div>
+                </div>
+              </div>
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round">Ajouter Colis</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
