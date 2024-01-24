@@ -56,6 +56,8 @@ export class SidebarComponent implements OnInit {
         this.adminService.getClientAccountByEmail(this.tokenStorage.getUser()).subscribe(
             (data)=> {
                 this.role = data.role;
+                console.log(this.role)
+                console.log(data)
                 if(this.role ==="USER"){
                     this.menuItems = ROUTES.filter(menuItem => menuItem);
 
