@@ -44,6 +44,7 @@ import { ConsulterColisComponent } from './pages/consulter-colis/consulter-colis
 import { ConfirmationService, MessageService } from "primeng/api";
 import { ColisDetailComponent } from './pages/consulter-colis/colis-detail/colis-detail.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { EnvironmentLoaderService } from "./services/environement.service";
 
 @NgModule({
   declarations: [
@@ -94,7 +95,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     InputTextareaModule,
     
   ],
-  providers: [TokenStorageService,LoginService,ProductService,MessageService, ConfirmationService],
+  providers: [TokenStorageService,LoginService,ProductService,MessageService, ConfirmationService,EnvironmentLoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
