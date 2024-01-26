@@ -13,7 +13,7 @@
         </ng-template>
     </p-toolbar> -->
 
-    <p-table #dt responsiveLayout="scroll"  [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['designation','fullName','telNumber']"
+    <p-table #dt responsiveLayout="scroll"  [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['designation','fullName','telNumber','status']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Affichage du {first} au {last} des {totalRecords} entrées" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -23,18 +23,26 @@
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." />
                 </span>
+                <span class="p-input-icon-left" *ngIf="role ==='ADMIN'">
+                    <p-dropdown [options]="users" [(ngModel)]="selectedUser" (ngModelChange)="onSelectChange()" [optionLabel]="getUserLabel" optionValue="email" [showClear]="true" placeholder="Sélectionner un utilisateur">
+                        <ng-template let-user pTemplate="item">
+                            {{ getUserLabel(user) }}
+                        </ng-template>
+                    </p-dropdown>
+                </span>
             </div>
+           
         </ng-template>
         <ng-template pTemplate="header">
             <tr >
                 <!-- <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th> -->
-                <th  pSortableColumn="name">Désignation <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="name">Nom complet <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="name">Téléphone <p-sortIcon field="name"></p-sortIcon></th>
+                <th  pSortableColumn="designation">Désignation <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="fullName">Nom complet <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="telNumber">Téléphone <p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="price">prix <p-sortIcon field="price"></p-sortIcon></th>
-                <th pSortableColumn="price">Statut <p-sortIcon field="price"></p-sortIcon></th>
+                <th pSortableColumn="status">Statut <p-sortIcon field="price"></p-sortIcon></th>
                 <th></th>
                 
             </tr>
@@ -51,7 +59,7 @@
                 <td><a (click) = "showPackageDetail(product)" style="text-decoration: none; cursor: pointer; color: black;" href="#" [routerLink]="['.']">
                     {{product.telNumber}}</a></td>
                 <td><a (click) = "showPackageDetail(product)" style="text-decoration: none; cursor: pointer; color: black;" href="#" [routerLink]="['.']">
-                    {{product.priceNet + product.priceDelivery | currency:'TND'}}</a></td>
+                    {{product.priceNet + (product.priceDelivery * product.packageNumber) | currency:'TND'}}</a></td>
                 <td>
 
                     <span class="badge badge-pill badge-danger" *ngIf="product?.status === 'NOT_STARTED'">Commande n'est pas traitée</span>
@@ -74,7 +82,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
+            <div class="p-d-flex p-ai-center p-jc-between">changeStatus
                 Au total il y a {{products ? products.length : 0 }} colis.
             </div>
         </ng-template>

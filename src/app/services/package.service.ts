@@ -29,4 +29,9 @@ export class PackageService {
     return this.http.post(`${this.environementService.getEnvironment().api_url}` +  'packages/changeStatus/'+id+'?status='+status, httpOptions);
     // return this.http.post(AUTH_API + 'index', httpOptions);
   }
+
+  getPackagesByDate(): Observable<any> {
+    return this.http.get(`${this.environementService.getEnvironment().api_url}` +  'packages/createdDate', httpOptions);
+    // return this.http.post(AUTH_API + 'index', httpOptions);
+  }
 }

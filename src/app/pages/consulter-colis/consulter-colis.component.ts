@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'app/models/product';
+import { User } from 'app/models/user';
+import { AdminService } from 'app/services/admin.service';
 import { TokenStorageService } from 'app/services/auth/TokenStorage.Service';
 import { PackageService } from 'app/services/package.service';
 import { ProductService } from 'app/services/product.service';
@@ -30,17 +32,57 @@ export class ConsulterColisComponent implements OnInit {
 
   submitted: boolean;
   package : any = null;
+  role : any;
+  users : User []= [];
+  selectedUser : any;
 
   constructor(private packageService : PackageService, private tokenStorage : TokenStorageService,
      private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService,
-     private router : Router) { }
+     private router : Router,private userService : AdminService) { }
 
   ngOnInit() {
     this.logOut();
-      this.productService.getProducts().then(data => this.products = data);
-      this.packageService.getpackagesByClient(this.tokenStorage.getUser()).subscribe((data)=> {
-        this.products =data;
-      })
+    this.userService.getAllClientAccount().subscribe((data)=> {
+        this.users = data;
+    })
+    this.userService.getClientAccountByEmail(this.tokenStorage.getUser()).subscribe((data )=> {
+        this.role = data.role;
+        if(data.role ==="ADMIN"){
+            this.packageService.getPackagesByDate().subscribe((data)=> {
+                this.products =data;
+              })
+        }else {
+            this.packageService.getpackagesByClient(this.tokenStorage.getUser()).subscribe((data)=> {
+                this.products =data;
+              })
+        }
+      
+    })
+      
+  }
+  onSelectChange(){
+    console.log(this.selectedUser)
+    if (this.selectedUser ) {
+        console.log("Selected user email:", this.selectedUser);
+  
+        this.packageService.getpackagesByClient(this.selectedUser).subscribe((data) => {
+          this.products = data;
+        });
+      }else {
+        this.userService.getClientAccountByEmail(this.tokenStorage.getUser()).subscribe((data )=> {
+            this.role = data.role;
+            if(data.role ==="ADMIN"){
+                this.packageService.getPackagesByDate().subscribe((data)=> {
+                    this.products =data;
+                  })
+            }else {
+                this.packageService.getpackagesByClient(this.tokenStorage.getUser()).subscribe((data)=> {
+                    this.products =data;
+                  })
+            }
+          
+        })
+      }
   }
   showPackageDetail(colis){
     this.package=colis;
@@ -64,7 +106,9 @@ export class ConsulterColisComponent implements OnInit {
           }
       });
   }
-
+  getUserLabel(user: any): string {
+    return user.firstName + ' ' + user.lastName;
+  }
   editProduct(product: Product) {
       this.product = {...product};
       this.productDialog = true;

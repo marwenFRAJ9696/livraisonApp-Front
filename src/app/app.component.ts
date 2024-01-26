@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from './services/auth/TokenStorage.Service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent{}
+export class AppComponent implements OnInit{
+  
+  constructor(private tokenStorage : TokenStorageService , private router : Router){}
+  ngOnInit(): void {
+    if(this.tokenStorage.getUser() == null){
+      this.tokenStorage.signOut(); 
+      this.router.navigate(['/authentificate/signin']);  
+    }
+  }
+}

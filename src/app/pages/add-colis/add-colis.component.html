@@ -58,13 +58,13 @@
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>Nombre d'article</label>
-                  <input type="number" class="form-control" [(ngModel)]="form.articleNumber"  name="articleNumber" placeholder="Nombre d'article" >
+                  <input type="number" class="form-control" [(ngModel)]="form.articleNumber" min="1"   name="articleNumber" placeholder="Nombre d'article" >
                 </div>
               </div>
               <div class="col-md-6 pl-1">
                 <div class="form-group">
                   <label>Nombre de colis</label>
-                  <input type="number" class="form-control" [(ngModel)]="form.packageNumber" name="packageNumber" placeholder="Nombre de colis">
+                  <input type="number" class="form-control" [(ngModel)]="form.packageNumber"  min="1"  (change)="changePriceOfDelivery()" name="packageNumber" placeholder="Nombre de colis">
                 </div>
               </div>
             </div>
@@ -126,7 +126,7 @@
                 <div class="col-md-4 pr-3">
                   <div class="form-group">
                     <label>Prix de livraison en DT</label>
-                    <input type="text" disabled class="form-control" [value]="priceOfDelivery"   name="priceOfDelivery"  placeholder="Prix en DT">
+                    <input type="text" disabled class="form-control" [(ngModel)]="priceOfDelivery"   name="priceOfDelivery"  placeholder="Prix en DT">
                   </div>
                 </div>
               </div>
