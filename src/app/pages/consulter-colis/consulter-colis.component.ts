@@ -7,6 +7,8 @@ import { TokenStorageService } from 'app/services/auth/TokenStorage.Service';
 import { PackageService } from 'app/services/package.service';
 import { ProductService } from 'app/services/product.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-consulter-colis',
@@ -35,6 +37,11 @@ export class ConsulterColisComponent implements OnInit {
   role : any;
   users : User []= [];
   selectedUser : any;
+  colis : any= {};
+ user :any = {};
+ priceOfLivraison : number = 0;
+ priceTotal : number = 0;
+ isHidden: boolean = true;
 
   constructor(private packageService : PackageService, private tokenStorage : TokenStorageService,
      private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService,
@@ -186,5 +193,46 @@ export class ConsulterColisComponent implements OnInit {
           id += chars.charAt(Math.floor(Math.random() * chars.length));
       }
       return id;
+  }
+ // Fonction pour générer le PDF
+ generatePDF(colis : any) {
+    this.colis = colis;
+    this.userService.getClientAccountByEmail(this.colis.emailUser).subscribe(
+        (data)=> {
+            this.user = data;
+            this.priceOfLivraison = this.priceOfLivraison + (data.priceOfDelivery * this.colis.packageNumber);
+            this.priceTotal = this.priceTotal + this.priceOfLivraison + this.colis.priceNet;
+            this.isHidden = false; // Affichez le contenu
+            setTimeout(() => {
+                this.captureAndSavePDF();
+              }, 2000);
+        }
+    )
+  
+  }
+  captureAndSavePDF(){
+      //wait 2 seconde 
+      const element = document.getElementById('canvas'); // Replace 'canvas' with the ID of your HTML element
+      if (element) {
+        html2canvas(element).then((canvas) => {
+          // Convert canvas to image data URL
+          const imgData = canvas.toDataURL('image/png');
+  
+          // Create a new jsPDF instance
+          const pdf = new jsPDF('p', 'px', 'a4');
+          const imgProp = pdf.getImageProperties(imgData);
+          const width =pdf.internal.pageSize.getWidth()
+          const height= (imgProp.height * width) /imgProp.width
+          // Add the image to the PDF
+          pdf.addImage(imgData, 'PNG', 0, 0, width, height); // Adjust the x, y, width, and height as needed
+  
+          // Save the PDF
+          pdf.save('sample-file.pdf');
+          this.isHidden = true; // Affichez le contenu
+
+        });
+      } else {
+        console.error('Element with ID "canvas" not found.');
+      }
   }
 }

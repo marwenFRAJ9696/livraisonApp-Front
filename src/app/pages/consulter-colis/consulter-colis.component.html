@@ -77,7 +77,7 @@
                     <button pButton pRipple  class="p-button p-button-dark p-mr-2" (click)="changeStatus(product)"  *ngIf="product?.status === 'DELIVERED'">
                         Commande payée
                     </button>
-                    <!-- <button pButton pRipple icon="pi pi-check" icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button> -->
+                    <button pButton pRipple icon="pi pi-check" icon="nc-icon nc-single-copy-04" class="p-button-rounded p-button-warning" (click)="generatePDF(product)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -142,3 +142,57 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<!-- [hidden]="true" -->
+<div id="canvas" [hidden]="isHidden">
+    <!-- Tout votre contenu HTML que vous souhaitez inclure dans le PDF -->
+    <div class="bordereau-envoi">
+        <h2>Bordereau d'envoi</h2>
+        <div class="header">
+            <div class="expediteur">
+                <p><strong>Nom :</strong> {{user.firstName}} {{user.lastName}}</p>
+                <p><strong>Expéditeur :</strong> {{user.campanyName}}</p>
+                <p><strong>Adresse :</strong>{{user.city}}, {{user.address}}, {{user.codePostal}}</p>
+                <p><strong>Tél. :</strong> {{user.telNumber}}</p>
+                <p><strong>M/F :</strong> {{user.taxIdentificationNumber}}</p>
+                <!-- <p><strong>Code Agence :</strong> 01</p> -->
+            </div>
+            <div class="destinataire">
+                <p><strong>Nom de destinataire :</strong> {{colis.fullName}}</p>
+                <p><strong>Adresse :</strong> {{colis.governorate}}, {{colis.city}}, {{colis.fullAddress}} </p>
+                <p><strong>Téléphone :</strong> {{colis.telNumber}}</p>
+            </div>
+        </div>
+        <div class="details">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Désignation</th>
+                        <th>Quantité</th>
+                        <th>Montant Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{colis.designation}}</td>
+                        <td>{{colis.packageNumber}}</td>
+                        <td>{{priceTotal}} DT</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="total">
+            <p><strong>Prix en Net</strong> {{colis.priceNet}} DT</p>
+            <p><strong>Prix de livraison</strong> {{priceOfLivraison}} DT</p>
+            <p><strong>Total </strong> {{priceTotal}} DT</p>
+        </div>
+        <div class="footer">
+            <p><strong *ngIf="colis.paymentMode==='CASH'">Espece seulement</strong>
+                <strong *ngIf="colis.paymentMode==='CHEQUE'">Chéque seulement</strong>
+                <strong *ngIf="colis.paymentMode==='CASH_OR_CHEQUE'">Espece ou Chéque</strong>
+            </p>
+            <p><strong>Société de Livraison:</strong> Fly Delivery</p>
+            <p><strong>Adresse:</strong> Monthfleury, Tunis.</p>
+            <p><strong>Tel:</strong> 29 905 911</p>
+        </div>
+    </div>
+  </div>
