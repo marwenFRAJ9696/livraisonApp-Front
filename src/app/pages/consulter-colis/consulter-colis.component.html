@@ -1,6 +1,7 @@
+
 <p-toast></p-toast>
 <app-colis-detail [colis]="package"></app-colis-detail>
-<div class="card">
+
     <!-- <p-toolbar  responsiveLayout="scroll"  styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
@@ -12,7 +13,7 @@
             <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
         </ng-template>
     </p-toolbar> -->
-
+    <div class="table-responsive">
     <p-table #dt responsiveLayout="scroll"  [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['designation','fullName','telNumber','status']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Affichage du {first} au {last} des {totalRecords} entrées" [showCurrentPageReport]="true">
@@ -24,7 +25,8 @@
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." />
                 </span>
                 <span class="p-input-icon-left" *ngIf="role ==='ADMIN'">
-                    <p-dropdown [options]="users" [(ngModel)]="selectedUser" (ngModelChange)="onSelectChange()" [optionLabel]="getUserLabel" optionValue="email" [showClear]="true" placeholder="Sélectionner un utilisateur">
+                    <p-dropdown responsiveLayout="scroll" [options]="users" [(ngModel)]="selectedUser" (ngModelChange)="onSelectChange()" [optionLabel]="getUserLabel" optionValue="email" [showClear]="true" placeholder="Utilisateur">
+                       
                         <ng-template let-user pTemplate="item">
                             {{ getUserLabel(user) }}
                         </ng-template>
@@ -43,6 +45,7 @@
                 <th pSortableColumn="telNumber">Téléphone <p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="price">prix <p-sortIcon field="price"></p-sortIcon></th>
                 <th pSortableColumn="status">Statut <p-sortIcon field="price"></p-sortIcon></th>
+                <th></th>
                 <th></th>
                 
             </tr>
@@ -67,7 +70,7 @@
                     <span class="badge badge-pill badge-success" *ngIf="product?.status === 'DELIVERED'">Commande livrée</span>
                     <span class="badge badge-pill badge-dark" *ngIf="product?.status === 'BOOKED'">Commande payée</span>
                   </td>
-                <td>
+                <td *ngIf="role ==='ADMIN'">
                     <button pButton pRipple  class="p-button p-button-primary p-mr-2" (click)="changeStatus(product)"  *ngIf="product?.status === 'NOT_STARTED'">
                         Commande en cours
                     </button>
@@ -77,17 +80,21 @@
                     <button pButton pRipple  class="p-button p-button-dark p-mr-2" (click)="changeStatus(product)"  *ngIf="product?.status === 'DELIVERED'">
                         Commande payée
                     </button>
+                </td>
+                <td>
                     <button pButton pRipple icon="pi pi-check" icon="nc-icon nc-single-copy-04" class="p-button-rounded p-button-warning" (click)="generatePDF(product)"></button>
+
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">changeStatus
+            <div class="p-d-flex p-ai-center p-jc-between">
                 Au total il y a {{products ? products.length : 0 }} colis.
             </div>
         </ng-template>
     </p-table>
-</div>
+    </div>
+
 
 <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
@@ -142,11 +149,11 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
-<!-- [hidden]="true" -->
+
+<!--  -->
 <div id="canvas" [hidden]="isHidden">
-    <!-- Tout votre contenu HTML que vous souhaitez inclure dans le PDF -->
     <div class="bordereau-envoi">
-        <h2>Bordereau d'envoi</h2>
+        <h2>Bon de Livraison</h2>
         <div class="header">
             <div class="expediteur">
                 <p><strong>Nom :</strong> {{user.firstName}} {{user.lastName}}</p>
@@ -154,7 +161,6 @@
                 <p><strong>Adresse :</strong>{{user.city}}, {{user.address}}, {{user.codePostal}}</p>
                 <p><strong>Tél. :</strong> {{user.telNumber}}</p>
                 <p><strong>M/F :</strong> {{user.taxIdentificationNumber}}</p>
-                <!-- <p><strong>Code Agence :</strong> 01</p> -->
             </div>
             <div class="destinataire">
                 <p><strong>Nom de destinataire :</strong> {{colis.fullName}}</p>
@@ -196,3 +202,56 @@
         </div>
     </div>
   </div>
+
+
+  <!-- <div id="canvas" [hidden]="isHidden" class="container">
+    <div class="bordereau-envoi">
+      <h2 class="text-center">Bon de livraison</h2>
+      <div class="header row">
+        <div class="expediteur col-md-6">
+          <p><strong>Nom :</strong> {{user.firstName}} {{user.lastName}}</p>
+          <p><strong>Expéditeur :</strong> {{user.campanyName}}</p>
+          <p><strong>Adresse :</strong>{{user.city}}, {{user.address}}, {{user.codePostal}}</p>
+          <p><strong>Tél. :</strong> {{user.telNumber}}</p>
+          <p><strong>M/F :</strong> {{user.taxIdentificationNumber}}</p>
+        </div>
+        <div class="destinataire col-md-6">
+          <p><strong>Nom de destinataire :</strong> {{colis.fullName}}</p>
+          <p><strong>Adresse :</strong> {{colis.governorate}}, {{colis.city}}, {{colis.fullAddress}} </p>
+          <p><strong>Téléphone :</strong> {{colis.telNumber}}</p>
+        </div>
+      </div>
+      <div class="details table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Désignation</th>
+              <th>Quantité</th>
+              <th>Montant Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{colis.designation}}</td>
+              <td>{{colis.packageNumber}}</td>
+              <td>{{priceTotal}} DT</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="total">
+        <p><strong>Prix en Net</strong> {{colis.priceNet}} DT</p>
+        <p><strong>Prix de livraison</strong> {{priceOfLivraison}} DT</p>
+        <p><strong>Total </strong> {{priceTotal}} DT</p>
+      </div>
+      <div class="footer">
+        <p><strong *ngIf="colis.paymentMode==='CASH'">Espece seulement</strong>
+          <strong *ngIf="colis.paymentMode==='CHEQUE'">Chéque seulement</strong>
+          <strong *ngIf="colis.paymentMode==='CASH_OR_CHEQUE'">Espece ou Chéque</strong>
+        </p>
+        <p><strong>Société de Livraison:</strong> Fly Delivery</p>
+        <p><strong>Adresse:</strong> Monthfleury, Tunis.</p>
+        <p><strong>Tel:</strong> 29 905 911</p>
+      </div>
+    </div>
+  </div> -->

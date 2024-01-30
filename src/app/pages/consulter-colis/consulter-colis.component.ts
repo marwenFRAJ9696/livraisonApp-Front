@@ -205,6 +205,8 @@ export class ConsulterColisComponent implements OnInit {
             this.isHidden = false; // Affichez le contenu
             setTimeout(() => {
                 this.captureAndSavePDF();
+                this.priceTotal = 0;
+                this.priceOfLivraison = 0;
               }, 2000);
         }
     )
@@ -219,15 +221,26 @@ export class ConsulterColisComponent implements OnInit {
           const imgData = canvas.toDataURL('image/png');
   
           // Create a new jsPDF instance
-          const pdf = new jsPDF('p', 'px', 'a4');
+          const pdf = new jsPDF('p', 'mm', 'a4'); // Set units to millimeters for A4
           const imgProp = pdf.getImageProperties(imgData);
-          const width =pdf.internal.pageSize.getWidth()
-          const height= (imgProp.height * width) /imgProp.width
-          // Add the image to the PDF
+    
+        if (window.innerWidth <= 767) {
+          // Code à exécuter pour les appareils mobiles
+          console.log("Vous êtes sur un appareil mobile.");
+        
+            // Calculate the height based on the A4 width and aspect ratio
+        const width = pdf.internal.pageSize.getWidth();
+        const height = pdf.internal.pageSize.getHeight();
           pdf.addImage(imgData, 'PNG', 0, 0, width, height); // Adjust the x, y, width, and height as needed
-  
+
+        }else {
+          const width =pdf.internal.pageSize.getWidth()
+          const height= (imgProp.height * width) /imgProp.width;
+          pdf.addImage(imgData, 'PNG', 0, 0, width, height); // Adjust the x, y, width, and height as needed
+
+        }
           // Save the PDF
-          pdf.save('sample-file.pdf');
+          pdf.save('bon-de-livraison.pdf');
           this.isHidden = true; // Affichez le contenu
 
         });

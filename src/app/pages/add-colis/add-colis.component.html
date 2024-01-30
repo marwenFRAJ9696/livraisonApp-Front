@@ -7,13 +7,13 @@
         <div class="card-body">
           <form action="#"  (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <div class="row">
-              <div class="col-md-5 pr-1">
+              <div class="col-md-5 pr-md-1">
                 <div class="form-group">
                   <label>Nom complet</label>
                   <input type="text" class="form-control" [(ngModel)]="form.fullName" name="fullName" placeholder="Nom complet" >
                 </div>
               </div>
-              <div class="col-md-3 px-1">
+              <div class="col-md-3 px-md-1">
                 <div class="form-group">
                   <label>Governorat</label>
                   <select class="form-control" [(ngModel)]="form.governorate" (change)="onSelectChange($event)" aria-label="Default select example">
@@ -22,7 +22,7 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-4 pl-1">
+              <div class="col-md-4 pl-md-1">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Ville</label>
                   <select class="form-control" [(ngModel)]="form.city" aria-label="Default select example">
@@ -33,13 +33,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 pr-1">
+              <div class="col-md-6 pr-md-1">
                 <div class="form-group">
                   <label>Adresse complète</label>
                   <input type="text" class="form-control" [(ngModel)]="form.fullAddress"  name="fullAddress"  placeholder="Adresse complète">
                 </div>
               </div>
-              <div class="col-md-6 pl-1">
+              <div class="col-md-6 pl-md-1">
                 <div class="form-group">
                   <label>Téléphone</label>
                   <input type="text" class="form-control" [(ngModel)]="form.telNumber" name="telNumber" placeholder="Téléphone">
@@ -55,13 +55,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 pr-1">
+              <div class="col-md-6 pr-md-1">
                 <div class="form-group">
                   <label>Nombre d'article</label>
                   <input type="number" class="form-control" [(ngModel)]="form.articleNumber" min="1"   name="articleNumber" placeholder="Nombre d'article" >
                 </div>
               </div>
-              <div class="col-md-6 pl-1">
+              <div class="col-md-6 pl-md-1">
                 <div class="form-group">
                   <label>Nombre de colis</label>
                   <input type="number" class="form-control" [(ngModel)]="form.packageNumber"  min="1"  (change)="changePriceOfDelivery()" name="packageNumber" placeholder="Nombre de colis">
@@ -69,7 +69,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 pr-1">
+              <div class="col-md-6 pr-md-1">
                 <div class="form-group">
                   <label>Mode de paiment</label>
                   <select class="form-control" [(ngModel)]="form.paymentMode" aria-label="Default select example">
@@ -78,7 +78,7 @@
                   </select>
                 </div>
               </div>
-                <div class="col-md-6 pl-1">
+                <div class="col-md-6 pl-md-1">
                     <div class="form-group">
                         <label>Type de livraison</label>
                         <select class="form-control" [(ngModel)]="form.deliveryType" aria-label="Default select example">
@@ -90,7 +90,7 @@
             </div>
         
             <div class="row">
-                <div class="col-md-12 pr-1">
+                <div class="col-md-12 pr-md-1">
                   <div class="form-group">
                     <label>Ouvrir le colis au client avant le paiement ?</label>
                     <div class="form-check form-check-inline">
@@ -105,7 +105,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12 pr-3">
+                <div class="col-md-12 pr-md-3">
                   <div class="form-group">
                     <label>Remarques :</label>
                     <textarea name="commentaire" [(ngModel)]="form.comment" name="comment" class="form-control cc-number identified visa"></textarea>
@@ -113,8 +113,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-8 pr-1"></div>
-                <div class="col-md-4 pr-3">
+                <div class="col-md-8 pr-md-1"></div>
+                <div class="col-md-4 pr-md-3">
                   <div class="form-group">
                     <label>Prix en DT</label>
                     <input type="text" class="form-control" [(ngModel)]="form.priceNet"   name="priceNet" (input)="calculateSum()"  placeholder="Prix en DT">
@@ -122,8 +122,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-8 pr-1"></div>
-                <div class="col-md-4 pr-3">
+                <div class="col-md-8 pr-md-1"></div>
+                <div class="col-md-4 pr-md-3">
                   <div class="form-group">
                     <label>Prix de livraison en DT</label>
                     <input type="text" disabled class="form-control" [(ngModel)]="priceOfDelivery"   name="priceOfDelivery"  placeholder="Prix en DT">
@@ -131,8 +131,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-8 pr-1"></div>
-                <div class="col-md-4 pr-3">
+                <div class="col-md-8 pr-md-1"></div>
+                <div class="col-md-4 pr-md-3">
                   <div class="form-group">
                     <label>Prix inclut frais de livraison en DT</label>
                     <input type="text" disabled class="form-control" [(ngModel)]="totalPrice"   name="priceOfDelivery"  placeholder="Prix en DT">
