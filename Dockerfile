@@ -15,9 +15,14 @@ FROM nginx:1.21-alpine
 # Supprimer la configuration par défaut de Nginx
 RUN rm -rf /usr/share/nginx/html/*
 
+# Create the "assets" directory
+RUN mkdir -p /usr/share/nginx/html/assets
+
 # Copier les fichiers de l'étape de construction de l'application Angular vers le répertoire de contenu de Nginx
 COPY --from=builder /app/dist/* /usr/share/nginx/html/
 
+# Copy the "assets" directory to /usr/share/nginx/html/assets
+COPY --from=builder /app/src/assets /usr/share/nginx/html/assets
 
 # Configuration optionnelle : si votre application Angular utilise des routes avec le mode HTML5
 # décommentez les deux lignes suivantes pour gérer ces routes dans Nginx
