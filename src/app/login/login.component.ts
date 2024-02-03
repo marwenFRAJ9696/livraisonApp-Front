@@ -46,6 +46,6 @@ export class LoginComponent implements OnInit {
         
   }
   goToHome(): void {
-    this.route.navigate(['/dashboard']);
+    this.route.navigate(['/view-colis']);
   }
 }

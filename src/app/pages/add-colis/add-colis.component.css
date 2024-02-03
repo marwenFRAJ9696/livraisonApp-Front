@@ -1,0 +1,48 @@
+.img-normal {
+    width: 100px; /* set your desired width */
+    height: auto; /* maintain aspect ratio */
+    max-width: 100%; /* ensure responsiveness */
+    text-align: center;
+
+}
+.textdescirption{
+    color: red;
+}
+
+.packageSizeBox {
+    border: 1px solid #ccc; /* Add a border or customize as needed */
+    padding: 1rem; /* You can adjust the padding value */
+    margin: 1rem; /* You can adjust the padding value */
+    text-align: center;
+}
+
+.packageSizeBoxActive {
+    border: 2px solid #f26e21!important; /* Add a border or customize as needed */
+    padding: 1rem; /* You can adjust the padding value */
+    margin: 1rem; /* You can adjust the padding value */
+    text-align: center;
+    color: #f26e21;
+}
+
+/* In your styles or stylesheet file */
+input .invalid-field {
+    border-color: red;
+  }
+  
+ 
+.sizeTitle {
+    font-weight: bold;
+    font-size: 1.2rem; /* You can adjust the font-size value */
+}
+
+.ft-12 {
+    font-size: 12px;
+    color: #555; /* You can adjust the color value */
+}
+.colorHref{
+    color: black;
+}
+/* Add this style to your global styles or component-specific styles */
+.ng-invalid.ng-touched {
+    border: 1px solid red; /* Add your preferred styling for invalid fields */
+  }

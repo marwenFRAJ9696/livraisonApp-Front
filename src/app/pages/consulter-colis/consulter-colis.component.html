@@ -14,7 +14,7 @@
         </ng-template>
     </p-toolbar> -->
     <div class="table-responsive">
-    <p-table #dt responsiveLayout="scroll"  [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['designation','fullName','telNumber','status']"
+    <p-table #dt responsiveLayout="scroll"  [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['designation','factureNumber','fullName','telNumber','status']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Affichage du {first} au {last} des {totalRecords} entrées" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -40,12 +40,13 @@
                 <!-- <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th> -->
-                <th  pSortableColumn="designation">Désignation <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="fullName">Nom complet <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="telNumber">Téléphone <p-sortIcon field="name"></p-sortIcon></th>
+                <th  pSortableColumn="designation">Désignation <p-sortIcon field="designation"></p-sortIcon></th>
+                <th pSortableColumn="factureNumber">Numéro Facture <p-sortIcon field="factureNumber"></p-sortIcon></th>
+                <th pSortableColumn="fullName">Nom complet <p-sortIcon field="fullName"></p-sortIcon></th>
+                <th pSortableColumn="telNumber">Téléphone <p-sortIcon field="telNumber"></p-sortIcon></th>
                 <th pSortableColumn="price">prix <p-sortIcon field="price"></p-sortIcon></th>
-                <th pSortableColumn="status">Statut <p-sortIcon field="price"></p-sortIcon></th>
-                <th></th>
+                <th pSortableColumn="status">Statut <p-sortIcon field="status"></p-sortIcon></th>
+                <th *ngIf="role ==='ADMIN'"></th>
                 <th></th>
                 
             </tr>
@@ -57,6 +58,8 @@
                 </td> -->
                 <td><a (click) = "showPackageDetail(product)" style="text-decoration: none; cursor: pointer; color: black;" href="#" [routerLink]="['.']" >
                     {{product.designation}}</a></td>
+               <td><a (click) = "showPackageDetail(product)" style="text-decoration: none; cursor: pointer; color: black;" href="#" [routerLink]="['.']" >
+                    {{product.factureNumber}}</a></td>      
                 <td><a (click) = "showPackageDetail(product)" style="text-decoration: none; cursor: pointer; color: black;" href="#" [routerLink]="['.']">
                     {{product.fullName}}</a></td>
                 <td><a (click) = "showPackageDetail(product)" style="text-decoration: none; cursor: pointer; color: black;" href="#" [routerLink]="['.']">
@@ -151,7 +154,7 @@
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
 <!--  -->
-<div id="canvas" [hidden]="isHidden">
+<!-- <div id="canvas" [hidden]="isHidden">
     <div class="bordereau-envoi">
         <h2>Bon de Livraison</h2>
         <div class="header">
@@ -201,7 +204,7 @@
             <p><strong>Tel:</strong> 29 905 911</p>
         </div>
     </div>
-  </div>
+  </div> -->
 
 
   <!-- <div id="canvas" [hidden]="isHidden" class="container">

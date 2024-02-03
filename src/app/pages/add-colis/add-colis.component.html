@@ -1,12 +1,254 @@
+<p-toast></p-toast>
+
+<form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
 <div class="row">
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-md-6 pr-md-1 d-flex align-items-center justify-content-center">
+            <div class="text-center img-normal">
+              <a  href="#" [routerLink]="['.']" *ngIf="isEchange == 'false'" (click)="ChangeNatureLivraison()">
+                <img src="../../../assets/img/exchange_gris.png" class="rounded" alt="">
+              </a> 
+              <a  href="#" [routerLink]="['.']" *ngIf="isEchange == 'true'" (click)="ChangeNatureLivraison()">
+                <img src="../../../assets/img/exchnage_orange.png" class="rounded" alt="">
+              </a> 
+
+              <!-- <img src="../../../assets/img/exchnage_orange.png" alt=""> -->
+            </div>
+          </div>
+          <div class="col-md-6 pl-md-1 d-flex align-items-center justify-content-center">
+            <div class="text-center img-normal">
+              <a  href="#" [routerLink]="['.']" *ngIf="isFragile == 'false'" (click)="ChangeNatureColis()">
+                <img src="../../../assets/img/fragile_gris.png" class="rounded" alt="">
+              </a> 
+              <a  href="#" [routerLink]="['.']" *ngIf="isFragile == 'true'" (click)="ChangeNatureColis()">
+                <img src="../../../assets/img/fragile_orange.png" class="rounded" alt="">
+              </a> 
+              <!-- <img src="../../../assets/img/fragile_orange.png" alt=""> -->
+            </div>
+          </div>
+        </div>
+      </div>      
+      </div>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Taille du Paquet</h5>
+        <div class="row">
+          <div class="col-md-6 pr-md-1">
+            <a class="colorHref" href="#" [routerLink]="['.']" (click)="changebooleanPetit()">
+            <div [ngClass]="{'packageSizeBox': isPetit == 'false' , 'packageSizeBoxActive': isPetit == 'true' }" >
+              <div class="sizeTitle">
+                Petit
+                <div class="ft-12"> Dans une boîte à chaussures </div>
+              </div>
+            </div>
+          </a> 
+          </div>
+          <div class="col-md-6 pr-md-1">
+            <a class="colorHref" href="#" [routerLink]="['.']" (click)="changebooleanGrand()">
+              <div [ngClass]="{'packageSizeBox': isGrand == 'false', 'packageSizeBoxActive': isGrand == 'true'}" >
+                <div class="sizeTitle">
+                  Grand
+                  <div class="ft-12"> Dans une grande valise </div>
+                </div>
+              </div>
+            </a> 
+           </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 pr-md-1">
+            <a class="colorHref" href="#" [routerLink]="['.']" (click)="changebooleanMoyen()">
+              <div [ngClass]="{'packageSizeBox': isMoyen == 'false', 'packageSizeBoxActive': isMoyen == 'true'}" >
+                <div class="sizeTitle">
+                  Moyen
+                  <div class="ft-12"> Dans un sac à dos  </div>
+                </div>
+              </div>
+            </a> 
+          </div>
+          <div class="col-md-6 pr-md-1">
+            <a class="colorHref" href="#" [routerLink]="['.']" (click)="changebooleanExtra()">
+              <div [ngClass]="{'packageSizeBox': isExtraLarge == 'false', 'packageSizeBoxActive': isExtraLarge == 'true'}" >
+                <div class="sizeTitle">
+                  Extra Large
+                  <div class="ft-12"> Dans une grande valise  </div>
+                </div>
+              </div>
+            </a> 
+           </div>
+        </div>
+      </div>      
+      </div>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Information Client</h5>
+        <div class="row">
+          <div class="col-md-5 pr-md-1">
+            <div class="form-group">
+              <label>Nom complet</label>
+              <input type="text" class="form-control" [(ngModel)]="form.fullName" name="fullName" placeholder="Nom complet" 
+             >
+             <!-- [ngClass]="{
+              'invalid-field': (f.submitted || form.fullName.touched) && form.fullName.invalid
+            }"
+            required -->
+                 <!-- Additional validation messages if needed -->
+              <!-- <div *ngIf="f.form.get('fullName').hasError('required') && f.form.get('fullName').touched" class="text-danger">
+                Le nom complet est requis.
+              </div> -->
+            </div>
+          </div>
+          <div class="col-md-3 px-md-1">
+            <div class="form-group">
+              <label>Governorat</label>
+              <select class="form-control" [(ngModel)]="form.governorate" (change)="onSelectChange($event)" aria-label="Default select example" 
+              
+              > 
+                <option selected></option>
+                <option [value]="gouv?.name"   name="governorate" *ngFor="let gouv of Governorats">{{gouv?.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4 pl-md-1">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Ville</label>
+              <select class="form-control" [(ngModel)]="form.city" aria-label="Default select example" >
+                <option selected></option>
+                <option [value]="v?.name"   name="city" *ngFor="let v of ville">{{v?.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 pr-md-1">
+            <div class="form-group">
+              <label>Adresse complète</label>
+              <input type="text" class="form-control" [(ngModel)]="form.fullAddress"  name="fullAddress"  placeholder="Adresse complète" >
+            </div>
+          </div>
+          <div class="col-md-3 pl-md-1">
+            <div class="form-group">
+              <label>Téléphone</label>
+              <input type="text" class="form-control" [(ngModel)]="form.telNumber" name="telNumber" placeholder="Téléphone" >
+            </div>
+          </div>
+          <div class="col-md-3 pl-md-1">
+            <div class="form-group">
+              <label>Téléphone 2</label>
+              <input type="text" class="form-control" [(ngModel)]="form.telNumber2" name="telNumber2" placeholder="Téléphone">
+            </div>
+          </div>
+        </div>
+      </div>      
+      </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Paiement</h5>
+        <div class="row">
+          <div class="col-md-6 pr-md-1">
+            <div class="form-group">
+              <label>Mode de paiement</label>
+              <select class="form-control" [(ngModel)]="form.paymentMode" aria-label="Default select example">
+                <option selected></option>
+                <option [value]="p.key"  name="paymentMode" *ngFor="let p of paymentModes">{{p.name}}</option>
+              </select>
+            </div>
+          </div>
+            <div class="col-md-6 pl-md-1">
+                <div class="form-group">
+                    <label>Type de livraison</label>
+                    <select class="form-control" [(ngModel)]="form.deliveryType" aria-label="Default select example">
+                      <option selected></option>
+                      <option [value]="d.key"  name="deliveryType" *ngFor="let d of deliveryTypes">{{d.name}}</option>
+                    </select>
+                    <p class="textdescirption">*Le type de paiment Rapide inclut des frais de livraison supplémentaires!</p>
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 pr-md-3">
+            <div class="form-group">
+              <label>Prix en DT</label>
+              <input type="text" class="form-control" [(ngModel)]="form.priceNet"   name="priceNet" (input)="calculateSum()"  placeholder="Prix en DT">
+              <p class="textdescirption">*Ce montant comprend les frais de livraison</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 pr-md-1">
+            <div class="form-group">
+              <label>Ouvrir le colis au client avant le paiement ?</label>
+              <div class="form-check form-check-inline">
+                  <label class="form-check-label"  for="inlineCheckbox1">OUI</label>
+                  <input class="form-check-input"  [(ngModel)]="form.isPackageCanBeOpen"  name="isPackageCanBeOpen" type="radio" id="inlineCheckbox1" value="OUI">
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="inlineCheckbox2">NON</label>
+                  <input class="form-check-input"  [(ngModel)]="form.isPackageCanBeOpen" name="isPackageCanBeOpen" type="radio" id="inlineCheckbox2"  value="NON" checked >
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>      
+      </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Information addtionnel</h5>
+          <div class="row">
+            <div class="col-md-12 pr-md-3">
+              <div class="form-group">
+                <label>Description :</label>
+                <textarea name="commentaire" [(ngModel)]="form.designation" name="designation" class="form-control cc-number identified visa" placeholder="Description de produit" ></textarea>
+              </div>
+            </div>
+            <div class="col-md-12 pr-md-3">
+              <div class="form-group">
+                <label>Remarques :</label>
+                <textarea name="commentaire" [(ngModel)]="form.comment" name="comment" placeholder="Informations supplémentaires sur le produit" class="form-control cc-number identified visa"></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit"  class="btn btn-primary btn-round">Sauvegarder un Colis</button>
+            </div>
+          </div>
+      </div>      
+      </div>
+    </div>
+</div>
+<!-- <div class="row">
     <div class="col-md-12">
       <div class="card card-user">
         <div class="card-header">
           <h5 class="card-title">Ajouter Colis</h5>
-        </div>
-        <div class="card-body">
-          <form action="#"  (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-            <div class="row">
+          
+          
+        </div> -->
+        <!-- <div class="card-body"> -->
+            <!-- <div class="row">
               <div class="col-md-5 pr-md-1">
                 <div class="form-group">
                   <label>Nom complet</label>
@@ -39,7 +281,7 @@
                   <input type="text" class="form-control" [(ngModel)]="form.fullAddress"  name="fullAddress"  placeholder="Adresse complète">
                 </div>
               </div>
-              <div class="col-md-6 pl-md-1">
+              <div class="col-md-3 pl-md-1">
                 <div class="form-group">
                   <label>Téléphone</label>
                   <input type="text" class="form-control" [(ngModel)]="form.telNumber" name="telNumber" placeholder="Téléphone">
@@ -138,15 +380,11 @@
                     <input type="text" disabled class="form-control" [(ngModel)]="totalPrice"   name="priceOfDelivery"  placeholder="Prix en DT">
                   </div>
                 </div>
-              </div>
-            <div class="row">
-              <div class="update ml-auto mr-auto">
-                <button type="submit" class="btn btn-primary btn-round">Ajouter Colis</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+              </div> -->
+        <!-- </div> -->
+      <!-- </div>
+    </div> -->
+  <!-- </div> -->
+</form>
+
   

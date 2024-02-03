@@ -4,6 +4,7 @@ export class Package{
     city :string;
     fullAddress : string;
     telNumber : string;
+    telNumber2 : string;
     designation :string;
     articleNumber: number;
     packageNumber : number;
@@ -13,4 +14,10 @@ export class Package{
     isPackageCanBeOpen : boolean;
     comment :string;
     emailUser : string;
+    isEchange : string;
+    isFragile: string;
+    isPetit: string;
+    isGrand: string;
+    isExtraLarge: string;
+    isMoyen: string;
 }

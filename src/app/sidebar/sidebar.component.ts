@@ -11,7 +11,7 @@ export interface RouteInfo {
 }
 
 export const ROUTESAdmin: RouteInfo[] = [
-    { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '' },
+    // { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '' },
     { path: '/add-client',         title: 'Ajouter Client',             icon:'nc-circle-10',    class: '' },
     { path: '/view-client',         title: 'Consulter Clients',             icon:'nc-shop',    class: '' },
     { path: '/add-colis',         title: 'Ajouter Colis',             icon:'nc-delivery-fast',    class: '' },
@@ -26,7 +26,7 @@ export const ROUTESAdmin: RouteInfo[] = [
 ];
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '' },
+    // { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '' },
     // { path: '/add-client',         title: 'Ajouter Client',             icon:'nc-circle-10',    class: '' },
     // { path: '/view-client',         title: 'Consulter Clients',             icon:'nc-shop',    class: '' },
     { path: '/add-colis',         title: 'Ajouter Colis',             icon:'nc-delivery-fast',    class: '' },

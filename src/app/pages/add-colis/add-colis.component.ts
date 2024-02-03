@@ -4,6 +4,7 @@ import { AdminService } from 'app/services/admin.service';
 import { TokenStorageService } from 'app/services/auth/TokenStorage.Service';
 import { Package } from 'app/services/model/package';
 import { PackageService } from 'app/services/package.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-colis',
@@ -12,15 +13,26 @@ import { PackageService } from 'app/services/package.service';
 })
 export class AddColisComponent implements OnInit {
   private package : Package ;
-  form : any ={};
+  form : any ={ 
+    fullName: '',
+
+   };
   ville : any[] = [];
   priceOfDelivery : number =0; 
   price : number =0; 
   totalPrice : number=0 ; 
+  isEchange : string = "false";
+  isFragile : string = "false";
+  isPetit : string = "false";
+  isGrand : string = "false";
+  isMoyen : string = "false";
+  isExtraLarge : string = "false";
   constructor(private tokenStorage : TokenStorageService, private packageService : PackageService,
-     private adminService : AdminService,private router : Router) { }
+     private adminService : AdminService,private router : Router, private toastService :MessageService) { }
 
   ngOnInit(): void {
+    this.form.fullName ="";
+    this.form.governorate ="";
     this.logOut();
     this.package = new Package();
     let user =this.tokenStorage.getUser();
@@ -52,6 +64,7 @@ export class AddColisComponent implements OnInit {
     this.package.articleNumber = this.form.articleNumber
     this.package.packageNumber = this.form.packageNumber
     this.package.telNumber = this.form.telNumber
+    this.package.telNumber2 = this.form.telNumber2
     this.package.priceNet = this.form.priceNet
     this.package.comment = this.form.comment
     this.package.deliveryType = this.form.deliveryType
@@ -62,14 +75,87 @@ export class AddColisComponent implements OnInit {
     this.package.paymentMode = this.form.paymentMode
     this.package.fullAddress = this.form.fullAddress
     this.package.emailUser =this.tokenStorage.getUser()
+    this.package.isEchange =this.isEchange
+    this.package.isFragile =this.isFragile
+    this.package.isPetit =this.isPetit
+    this.package.isGrand =this.isGrand
+    this.package.isExtraLarge =this.isExtraLarge
+    this.package.isMoyen =this.isMoyen
     console.log(this.package)
     this.packageService.createPackage(this.package).subscribe(
       (data) => {
         console.log(data)
-      this.form = {};
+      // this.form = {};
+      // this.isEchange ="false";
+      // this.isFragile="false";
+      // this.isPetit="false";
+      // this.isGrand="false";
+      // this.isExtraLarge="false";
+      // this.isMoyen="false";
+      this.toastService.add({
+        severity: 'success', // ou 'info', 'warn', 'error'
+        summary: 'Colis a été ajouté !',
+        detail: 'Opération réussie',
+      });
       }
     )
 
+  }
+  ChangeNatureLivraison(){
+    if(this.isEchange == "false"){
+      this.isEchange = "true";
+    }else {
+      this.isEchange = "false";
+    }
+  }
+  ChangeNatureColis(){
+    if(this.isFragile == "false"){
+      this.isFragile = "true";
+    }else {
+      this.isFragile = "false";
+    }
+    
+  }
+  changebooleanPetit(){
+    if(this.isPetit == "false"){
+      this.isPetit = "true";
+      this.isGrand = "false";
+      this.isMoyen = "false";
+      this.isExtraLarge = "false";
+    }else {
+      this.isPetit = "false";
+    }
+    
+  }
+  changebooleanGrand(){
+    if(this.isGrand == "false"){
+      this.isGrand = "true";
+      this.isMoyen = "false";
+      this.isExtraLarge = "false";
+      this.isPetit = "false";
+    }else {
+      this.isGrand = "false";
+    }
+  }
+  changebooleanMoyen(){
+    if(this.isMoyen == "false"){
+      this.isMoyen = "true";
+      this.isGrand = "false";
+      this.isExtraLarge = "false";
+      this.isPetit = "false";
+    }else {
+      this.isMoyen = "false";
+    }
+  }
+  changebooleanExtra(){
+    if(this.isExtraLarge == "false"){
+      this.isExtraLarge = "true";
+      this.isMoyen = "false";
+      this.isGrand = "false";
+      this.isPetit = "false";
+    }else {
+      this.isExtraLarge = "false";
+    }
   }
   onSelectChange(event: any): void {
     // Access the selected value using event.target.value
@@ -99,8 +185,8 @@ export class AddColisComponent implements OnInit {
     { key:"CASH_OR_CHEQUE",name :"Espèce ou Chèque" }
   ]
   deliveryTypes = [
-    { key:"RAPID",name :"Rapide (moins de 24 heures)" },
-    { key:"NORMAL",name :"Normal (entre 48 heures et 72 heures)" }
+    { key:"RAPID",name :"Rapide (moins de 12 heures)" },
+    { key:"NORMAL",name :"Normal (entre 24 heures et 48 heures)" }
   ]
   Governorats  = [
     {name :"Tunis", child : [ {name :"Ain zaghouan"},{name :"Bab bhar"},{name :"Bab souika"},{name :"Carthage"},{name :"Cite El Khadhra"}

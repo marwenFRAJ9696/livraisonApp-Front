@@ -9,6 +9,7 @@ import { ProductService } from 'app/services/product.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { PdfService } from 'app/services/pdf.service';
 
 @Component({
   selector: 'app-consulter-colis',
@@ -45,7 +46,7 @@ export class ConsulterColisComponent implements OnInit {
 
   constructor(private packageService : PackageService, private tokenStorage : TokenStorageService,
      private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService,
-     private router : Router,private userService : AdminService) { }
+     private router : Router,private userService : AdminService, private pdfService : PdfService) { }
 
   ngOnInit() {
     this.logOut();
@@ -197,19 +198,39 @@ export class ConsulterColisComponent implements OnInit {
  // Fonction pour générer le PDF
  generatePDF(colis : any) {
     this.colis = colis;
-    this.userService.getClientAccountByEmail(this.colis.emailUser).subscribe(
-        (data)=> {
-            this.user = data;
-            this.priceOfLivraison = this.priceOfLivraison + (data.priceOfDelivery * this.colis.packageNumber);
-            this.priceTotal = this.priceTotal + this.priceOfLivraison + this.colis.priceNet;
-            this.isHidden = false; // Affichez le contenu
-            setTimeout(() => {
-                this.captureAndSavePDF();
-                this.priceTotal = 0;
-                this.priceOfLivraison = 0;
-              }, 2000);
-        }
-    )
+    // this.userService.getClientAccountByEmail(this.colis.emailUser).subscribe(
+    //     (data)=> {
+    //         this.user = data;
+    //         this.priceOfLivraison = this.priceOfLivraison + (data.priceOfDelivery * this.colis.packageNumber);
+    //         this.priceTotal = this.priceTotal + this.priceOfLivraison + this.colis.priceNet;
+    //         this.isHidden = false; // Affichez le contenu
+    //         setTimeout(() => {
+    //             this.captureAndSavePDF();
+    //             this.priceTotal = 0;
+    //             this.priceOfLivraison = 0;
+    //           }, 2000);
+    //     }
+    // )
+    this.pdfService.generatePDF(this.colis.id).subscribe((response: any) => {
+      console.log(response)
+      const contentDispositionHeader = response.headers.get('Content-Disposition');
+      const filename = "bon-livraison.pdf";
+  
+      // Create a Blob from the response data
+      const blob = new Blob([response.body], { type: 'application/pdf' });
+  
+      // Create a download link and trigger the download
+      const downloadLink = document.createElement('a');
+      const url = window.URL.createObjectURL(blob);
+      downloadLink.href = url;
+      downloadLink.download = filename;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+  
+      // Clean up
+      document.body.removeChild(downloadLink);
+      window.URL.revokeObjectURL(url);
+    });
   
   }
   captureAndSavePDF(){
