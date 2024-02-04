@@ -9,11 +9,13 @@
         <div class="row">
           <div class="col-md-6 pr-md-1 d-flex align-items-center justify-content-center">
             <div class="text-center img-normal">
-              <a  href="#" [routerLink]="['.']" *ngIf="isEchange == 'false'" (click)="ChangeNatureLivraison()">
+              <a  class="colorHref" href="#" [routerLink]="['.']" *ngIf="isEchange == 'false'" (click)="ChangeNatureLivraison()">
                 <img src="../../../assets/img/exchange_gris.png" class="rounded" alt="">
+                <div class="sizeTitle">Echange</div>
               </a> 
-              <a  href="#" [routerLink]="['.']" *ngIf="isEchange == 'true'" (click)="ChangeNatureLivraison()">
+              <a class="colorHref"  href="#" [routerLink]="['.']" *ngIf="isEchange == 'true'" (click)="ChangeNatureLivraison()">
                 <img src="../../../assets/img/exchnage_orange.png" class="rounded" alt="">
+                <div class="sizeTitle">Echange</div>
               </a> 
 
               <!-- <img src="../../../assets/img/exchnage_orange.png" alt=""> -->
@@ -21,11 +23,13 @@
           </div>
           <div class="col-md-6 pl-md-1 d-flex align-items-center justify-content-center">
             <div class="text-center img-normal">
-              <a  href="#" [routerLink]="['.']" *ngIf="isFragile == 'false'" (click)="ChangeNatureColis()">
+              <a  class="colorHref" href="#" [routerLink]="['.']" *ngIf="isFragile == 'false'" (click)="ChangeNatureColis()">
                 <img src="../../../assets/img/fragile_gris.png" class="rounded" alt="">
+                <div class="sizeTitle">Fragile</div>
               </a> 
-              <a  href="#" [routerLink]="['.']" *ngIf="isFragile == 'true'" (click)="ChangeNatureColis()">
+              <a class="colorHref"  href="#" [routerLink]="['.']" *ngIf="isFragile == 'true'" (click)="ChangeNatureColis()">
                 <img src="../../../assets/img/fragile_orange.png" class="rounded" alt="">
+                <div class="sizeTitle">Fragile</div>
               </a> 
               <!-- <img src="../../../assets/img/fragile_orange.png" alt=""> -->
             </div>

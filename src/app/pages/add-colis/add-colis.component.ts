@@ -85,18 +85,20 @@ export class AddColisComponent implements OnInit {
     this.packageService.createPackage(this.package).subscribe(
       (data) => {
         console.log(data)
-      // this.form = {};
-      // this.isEchange ="false";
-      // this.isFragile="false";
-      // this.isPetit="false";
-      // this.isGrand="false";
-      // this.isExtraLarge="false";
+      this.form = {};
+      this.isEchange ="false";
+      this.isFragile="false";
+      this.isPetit="false";
+      this.isGrand="false";
+      this.isExtraLarge="false";
       // this.isMoyen="false";
       this.toastService.add({
         severity: 'success', // ou 'info', 'warn', 'error'
         summary: 'Colis a été ajouté !',
         detail: 'Opération réussie',
       });
+      this.router.navigate(['/view-colis']);
+
       }
     )
 
