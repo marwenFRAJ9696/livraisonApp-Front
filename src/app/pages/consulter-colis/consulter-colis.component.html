@@ -14,7 +14,7 @@
         </ng-template>
     </p-toolbar> -->
     <div class="table-responsive">
-    <p-table #dt responsiveLayout="scroll"  [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['designation','factureNumber','fullName','telNumber','status']"
+    <p-table #dt responsiveLayout="scroll"  [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['emailUser','designation','factureNumber','fullName','telNumber','status']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Affichage du {first} au {last} des {totalRecords} entrées" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -40,6 +40,7 @@
                 <!-- <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th> -->
+                <th  pSortableColumn="emailUser"  *ngIf="role ==='ADMIN'">Client ID <p-sortIcon field="designation"></p-sortIcon></th>
                 <th  pSortableColumn="designation">Désignation <p-sortIcon field="designation"></p-sortIcon></th>
                 <th pSortableColumn="factureNumber">Numéro Facture <p-sortIcon field="factureNumber"></p-sortIcon></th>
                 <th pSortableColumn="fullName">Nom complet <p-sortIcon field="fullName"></p-sortIcon></th>
@@ -56,6 +57,8 @@
                 <!-- <td>
                     <p-tableCheckbox [value]="product"></p-tableCheckbox>
                 </td> -->
+                <td *ngIf="role ==='ADMIN'"><a   (click) = "showPackageDetail(product)" style="text-decoration: none; cursor: pointer; color: black;" href="#" [routerLink]="['.']" >
+                    {{product.emailUser}}</a></td>
                 <td><a (click) = "showPackageDetail(product)" style="text-decoration: none; cursor: pointer; color: black;" href="#" [routerLink]="['.']" >
                     {{product.designation}}</a></td>
                <td><a (click) = "showPackageDetail(product)" style="text-decoration: none; cursor: pointer; color: black;" href="#" [routerLink]="['.']" >
@@ -86,6 +89,7 @@
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-check" icon="nc-icon nc-single-copy-04" class="p-button-rounded p-button-warning" (click)="generatePDF(product)"></button>
+                    <button pButton pRipple icon="pi pi-pencil"  class=" p-button-rounded p-button-success" *ngIf="product?.status === 'NOT_STARTED' ||  role ==='ADMIN' " (click)="navigateEditSecren(product)"></button>
 
                 </td>
             </tr>

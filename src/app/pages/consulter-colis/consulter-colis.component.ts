@@ -148,6 +148,10 @@ export class ConsulterColisComponent implements OnInit {
           }
       });
   }
+  navigateEditSecren(product){
+    this.router.navigate(['/edit-colis',product.id]);  
+
+  }
 
   hideDialog() {
       this.productDialog = false;

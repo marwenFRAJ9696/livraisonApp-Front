@@ -13,12 +13,14 @@ import { ViewClientComponent } from 'app/pages/view-client/view-client.component
 import { AddColisComponent } from 'app/pages/add-colis/add-colis.component';
 import { ConsulterColisComponent } from 'app/pages/consulter-colis/consulter-colis.component';
 import { ProfileComponent } from 'app/pages/profile/profile.component';
+import { EditColisComponent } from 'app/pages/edit-colis/edit-colis.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'add-client',           component: AddClientComponent },
     { path: 'view-client',           component: ViewClientComponent },
     { path: 'add-colis',           component: AddColisComponent },
+    { path: 'edit-colis/:id',           component: EditColisComponent },
     { path: 'view-colis',           component: ConsulterColisComponent },
     { path: 'profil',           component: ProfileComponent },
     { path: 'user',           component: UserComponent },

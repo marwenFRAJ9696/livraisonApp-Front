@@ -21,6 +21,11 @@ export class PackageService {
     // return this.http.post(AUTH_API + 'index', httpOptions);
   }
 
+  updatePackage(id , colis : Package): Observable<any> {
+    return this.http.put(`${this.environementService.getEnvironment().api_url}` + 'packages/package/'+id, colis, httpOptions);
+    // return this.http.post(AUTH_API + 'index', httpOptions);
+  }
+
   getpackagesByClient(email): Observable<any> {
     return this.http.get(`${this.environementService.getEnvironment().api_url}` +  'packages/'+email, httpOptions);
     // return this.http.post(AUTH_API + 'index', httpOptions);
@@ -32,6 +37,11 @@ export class PackageService {
 
   getPackagesByDate(): Observable<any> {
     return this.http.get(`${this.environementService.getEnvironment().api_url}` +  'packages/createdDate', httpOptions);
+    // return this.http.post(AUTH_API + 'index', httpOptions);
+  }
+
+  getPackageById(id): Observable<any> {
+    return this.http.get(`${this.environementService.getEnvironment().api_url}` +  'packages/package/'+id, httpOptions);
     // return this.http.post(AUTH_API + 'index', httpOptions);
   }
 }

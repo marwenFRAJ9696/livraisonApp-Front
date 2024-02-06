@@ -45,6 +45,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { ColisDetailComponent } from './pages/consulter-colis/colis-detail/colis-detail.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { EnvironmentLoaderService } from "./services/environement.service";
+import { EditColisComponent } from "./pages/edit-colis/edit-colis.component";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { EnvironmentLoaderService } from "./services/environement.service";
     ConsulterColisComponent,
     ColisDetailComponent,
     ProfileComponent,
+    EditColisComponent,
     
   ],
   imports: [
